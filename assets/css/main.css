@@ -1,0 +1,69 @@
+:root {
+    --main: #ff7b00;
+    --secondary: #ff8800;
+    --ternary: #ff9500;
+    --extra-1: #ffa200;
+    --extra-2: #ffaa00;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+}
+
+#content {
+    max-width: 768px;
+    margin: auto;
+    padding: 0em 0.5em;
+    overflow: hidden;
+}
+
+.navbar-container { 
+    list-style-type: none;
+    padding: 1em 0em;
+}
+
+.navbar {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.navbar-content {
+    float: right;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.75em;
+    color: black;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: var(--main);
+    text-decoration-thickness: 3px;
+}
+
+a:active {
+    color: var(--main);
+    text-decoration-color: black;
+    position: relative;
+    left: 0.1em;
+}
+
+.blog-list { 
+    list-style-type: none;
+    max-width: max-content;
+    margin: auto;
+    padding: 0;
+}
+
+.blog-list-header {
+    text-align: center;
+    background-color: var(--main);
+    color: white;
+    padding: 0.25em;
+    border-radius: 12px;
+}

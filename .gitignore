@@ -1,0 +1,8 @@
+.vscode
+vendor
+assets/css/styles
+.DS_STORE
+config/intro.md
+config/socials.php
+assets/js/highlight.min.js
+/blogs/*

@@ -1,0 +1,26 @@
+.fab {
+    font-size: 1.5em;
+    color: var(--main);
+}
+
+.socials {
+    margin-bottom: 0.5em;
+}
+
+#left {
+    float: left;
+    width: 65%;
+}
+
+#right {
+    float: right;
+    width: 30%;
+}
+
+.who-am-i-content {
+    padding: 0em 1em;
+}
+
+#socials-content {
+    padding: 0em 1em;
+}
