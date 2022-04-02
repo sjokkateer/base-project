@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Core\Adapters\DiceAdapter;
 use App\Core\Adapters\MarkdownInterface;
 use App\Core\Adapters\ParsedownAdapter;
@@ -10,13 +12,13 @@ use Dice\Dice;
 $rules = [
     MarkdownInterface::class => [
         'shared' => true,
-        'instanceOf' => ParsedownAdapter::class
+        'instanceOf' => ParsedownAdapter::class,
     ],
     BlogRepositoryInterface::class => [
         'shared' => true,
-        'instanceOf' => FileSystemBlogRepository::class
+        'instanceOf' => FileSystemBlogRepository::class,
     ],
 ];
 
-$dice = (new Dice)->addRules($rules);
+$dice = (new Dice())->addRules($rules);
 return new DiceAdapter($dice);
