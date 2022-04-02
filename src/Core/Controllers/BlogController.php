@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Controllers;
 
 use App\Core\Adapters\Markdown;
-use App\Core\BlogRepositoryInterface;
+use App\Core\BlogRepository;
 use App\Core\Exceptions\BlogNotFoundException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\RequestInterface;
@@ -17,7 +17,7 @@ use function view;
 class BlogController
 {
     public function __construct(
-        private BlogRepositoryInterface $blogRepo,
+        private BlogRepository $blogRepo,
         private Markdown $md,
     ) {
     }
@@ -26,7 +26,7 @@ class BlogController
     {
         $slug = $args['slug'];
 
-        if (! $blog = $this->blogRepo->get($slug)) {
+        if (!$blog = $this->blogRepo->get($slug)) {
             throw new BlogNotFoundException($slug);
         }
 

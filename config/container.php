@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Core\Adapters\DiceAdapter;
 use App\Core\Adapters\Markdown;
 use App\Core\Adapters\ParsedownAdapter;
-use App\Core\BlogRepositoryInterface;
+use App\Core\BlogRepository;
 use App\Core\FileSystemBlogRepository;
 use Dice\Dice;
 
@@ -14,7 +14,7 @@ $rules = [
         'shared' => true,
         'instanceOf' => ParsedownAdapter::class,
     ],
-    BlogRepositoryInterface::class => [
+    BlogRepository::class => [
         'shared' => true,
         'instanceOf' => FileSystemBlogRepository::class,
     ],

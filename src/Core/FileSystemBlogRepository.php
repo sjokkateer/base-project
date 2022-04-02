@@ -5,7 +5,7 @@ namespace App\Core;
 use App\Core\Models\Blog;
 use Iterator;
 
-class FileSystemBlogRepository implements BlogRepositoryInterface
+class FileSystemBlogRepository implements BlogRepository
 {
     private const BLOG_DIR = 'blogs';
 
