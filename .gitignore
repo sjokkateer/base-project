@@ -6,3 +6,6 @@ config/intro.md
 config/socials.php
 assets/js/highlight.min.js
 /blogs/*
+.phpunit.result.cache
+phpunit.xml
+clover.xml
