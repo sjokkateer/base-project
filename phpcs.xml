@@ -11,6 +11,10 @@
     <exclude-pattern>./templates</exclude-pattern>
     <exclude-pattern>./vendor</exclude-pattern>
 
+    <rule ref="MySource.PHP.GetRequestData.SuperglobalAccessed">
+        <exclude-pattern>./src</exclude-pattern>
+    </rule>
+
     <!-- include all rules in isaac ruleset -->
     <rule ref="ISAAC" />
 </ruleset>
