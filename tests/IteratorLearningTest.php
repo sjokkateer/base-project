@@ -14,7 +14,6 @@ use function iterator_to_array;
 
 final class IteratorLearningTest extends TestCase
 {
-    /** @test */
     public function testName(): void
     {
         // Arrange
@@ -22,12 +21,14 @@ final class IteratorLearningTest extends TestCase
         {
             public function accept(): bool
             {
+                /** @phpstan-ignore-next-line */
                 return $this->current()->getExtension() === 'md';
             }
         };
 
         // Act
         $asArray = iterator_to_array($iterator, false);
+        /** @phpstan-ignore-next-line */
         $actual = array_map(static fn ($file) => $file->getFilename(), $asArray);
 
         $expected = [
