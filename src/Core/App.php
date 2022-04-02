@@ -14,7 +14,7 @@ class App
     {
     }
 
-    public function run()
+    public function run(): void
     {
         $request = ServerRequestFactory::fromGlobals(
             $_SERVER,
