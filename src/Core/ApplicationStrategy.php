@@ -19,6 +19,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use ReflectionFunction;
 use ReflectionNamedType;
+use RuntimeException;
 
 use function array_slice;
 
@@ -49,6 +50,10 @@ class ApplicationStrategy extends AbstractStrategy implements ContainerAwareInte
         $parameters = $reflection->getParameters();
 
         $additionalArgs = [];
+
+        if ($this->getContainer() === null) {
+            throw new RuntimeException('Trying to auto wire parameters without having set a container instance!');
+        }
 
         foreach (array_slice($parameters, 2) as $additonalParameter) {
             $type = $additonalParameter->getType();

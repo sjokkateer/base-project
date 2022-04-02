@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core\Views;
 
+use RuntimeException;
+
 use function extract;
 use function ob_get_clean;
 use function ob_start;
@@ -30,6 +32,12 @@ class View
 
         ob_start();
         include __DIR__ . self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . 'layouts/base.html.php';
-        return ob_get_clean();
+        $finalContent = ob_get_clean();
+
+        if ($finalContent === false) {
+            throw new RuntimeException('Could not generate output through output buffer');
+        }
+
+        return $finalContent;
     }
 }

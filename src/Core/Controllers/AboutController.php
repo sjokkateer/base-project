@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
-use function array_filter;
 use function compact;
 use function file_exists;
 use function file_get_contents;
@@ -36,27 +35,25 @@ class AboutController
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $intro = $this->getIntro();
-        $socials = array_filter(
-            $this->getSocials(),
-            static fn ($socialMedia) => $socialMedia instanceof SocialMedia
-        );
+        $socials = $this->getSocials();
 
         return new HtmlResponse(view('about/index', compact('intro', 'socials')));
     }
 
+    /** @return array<SocialMedia> */
     private function getSocials(): array
     {
         $socials = [];
 
-        if (file_exists(static::getSocialsFile())) {
-            $socials = include static::getSocialsFile();
+        if (file_exists(self::getSocialsFile())) {
+            $socials = include self::getSocialsFile();
         }
 
         if (!is_array($socials)) {
             throw new RuntimeException(
                 sprintf(
                     "'%s' must return an array of SocialMedia objects",
-                    static::getSocialsFile()
+                    self::getSocialsFile()
                 )
             );
         }
@@ -66,7 +63,7 @@ class AboutController
 
     private static function getSocialsFile(): string
     {
-        return static::getConfigDir() . DIRECTORY_SEPARATOR . static::SOCIALS_FILE;
+        return self::getConfigDir() . DIRECTORY_SEPARATOR . static::SOCIALS_FILE;
     }
 
     private static function getConfigDir(): string
@@ -78,10 +75,19 @@ class AboutController
     {
         $intro = '';
 
-        if (file_exists(static::getIntroFile())) {
-            $intro = $this->md->convertToHtml(
-                file_get_contents(static::getIntroFile())
-            );
+        if (file_exists(self::getIntroFile())) {
+            $content = file_get_contents(self::getIntroFile());
+
+            if ($content === false) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Could not obtain the content for %s',
+                        self::getIntroFile()
+                    )
+                );
+            }
+
+            $intro = $this->md->convertToHtml($content);
         }
 
         return $intro;
@@ -89,12 +95,12 @@ class AboutController
 
     private static function getIntroFile(): string
     {
-        return static::getConfigDir() . DIRECTORY_SEPARATOR . static::INTRO_FILE;
+        return self::getConfigDir() . DIRECTORY_SEPARATOR . static::INTRO_FILE;
     }
 
     public static function hasAbout(): bool
     {
-        return file_exists(static::getSocialsFile())
-            || file_exists(static::getIntroFile());
+        return file_exists(self::getSocialsFile())
+            || file_exists(self::getIntroFile());
     }
 }

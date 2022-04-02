@@ -22,11 +22,13 @@ class BlogController
     ) {
     }
 
+    /** @param array<string> $args */
     public function show(RequestInterface $request, array $args): ResponseInterface
     {
         $slug = $args['slug'];
+        $blog = $this->blogRepo->get($slug);
 
-        if (!$blog = $this->blogRepo->get($slug)) {
+        if ($blog === null) {
             throw new BlogNotFoundException($slug);
         }
 

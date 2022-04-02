@@ -19,6 +19,6 @@ final class DiceLearningTest extends TestCase
         $md2 = $container->get(Markdown::class);
 
         // Assert
-        $this->assertSame($md, $md2);
+        static::assertSame($md, $md2);
     }
 }
