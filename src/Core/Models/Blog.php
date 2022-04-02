@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Models;
+
+use function file_get_contents;
 
 class Blog
 {

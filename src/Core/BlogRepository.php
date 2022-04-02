@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use App\Core\Models\Blog;
 
-interface BlogRepositoryInterface
+interface BlogRepository
 {
     public function get(string $slug): ?Blog;
 

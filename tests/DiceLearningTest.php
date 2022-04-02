@@ -1,19 +1,22 @@
 <?php
 
-use App\Core\Adapters\MarkdownInterface;
+declare(strict_types=1);
+
+namespace Learning;
+
+use App\Core\Adapters\Markdown;
 use PHPUnit\Framework\TestCase;
 
 final class DiceLearningTest extends TestCase
 {
-    /** @test */
-    public function shared_key_set_expected_returned_adapters_to_be_the_same_object_instance(): void
+    public function testSharedKeySetExpectedReturnedAdaptersToBeTheSameObjectInstance(): void
     {
         // Arrange
         $container = include_once __DIR__ . '/../config/container.php';
 
         // Act
-        $md = $container->get(MarkdownInterface::class);
-        $md2 = $container->get(MarkdownInterface::class);
+        $md = $container->get(Markdown::class);
+        $md2 = $container->get(Markdown::class);
 
         // Assert
         $this->assertSame($md, $md2);

@@ -6,7 +6,9 @@
     <file>.</file>
 
     <!-- exclude paths -->
+    <exclude-pattern>./assets</exclude-pattern>
     <exclude-pattern>./src/Migrations</exclude-pattern>
+    <exclude-pattern>./templates</exclude-pattern>
     <exclude-pattern>./vendor</exclude-pattern>
 
     <!-- include all rules in isaac ruleset -->

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Middleware;
 
 use App\Core\Exceptions\BlogNotFoundException;
@@ -9,6 +11,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+
+use function array_key_exists;
+use function view;
 
 class ExceptionMiddleware implements MiddlewareInterface
 {
@@ -21,7 +26,11 @@ class ExceptionMiddleware implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (Exception $e) {
-            $template = self::EXCEPTION_HANDLERS[$e::class] ?? 'exceptions/default';
+            $template = 'exceptions/default';
+
+            if (array_key_exists($e::class, self::EXCEPTION_HANDLERS)) {
+                $template = self::EXCEPTION_HANDLERS[$e::class];
+            }
 
             $data = [
                 'error' => $e,

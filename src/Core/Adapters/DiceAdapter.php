@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Adapters;
 
 use Dice\Dice;
+use Exception;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use ReflectionException;
+
+use function sprintf;
 
 class DiceAdapter implements ContainerInterface
 {
@@ -19,21 +25,26 @@ class DiceAdapter implements ContainerInterface
             '*' => [
                 'substitutions' => [
                     ContainerInterface::class => $this,
-                ]
+                ],
             ],
         ];
 
         return $this->container->addRules($rules);
     }
 
-    public function get(string $id)
+    public function get(string $id): mixed
     {
         if (!$this->has($id)) {
-            throw new class($id) extends \Exception implements NotFoundExceptionInterface
+            throw new class ($id) extends Exception implements NotFoundExceptionInterface
             {
                 public function __construct(string $id)
                 {
-                    parent::__construct("Could not resolve dependency with id '$id' from the container");
+                    parent::__construct(
+                        sprintf(
+                            "Could not resolve dependency with id '%s' from the container",
+                            $id
+                        )
+                    );
                 }
             };
         }
@@ -45,7 +56,7 @@ class DiceAdapter implements ContainerInterface
     {
         try {
             $this->container->create($id);
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return false;
         }
 

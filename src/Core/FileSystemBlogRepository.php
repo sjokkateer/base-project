@@ -1,11 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use App\Core\Models\Blog;
+use FilesystemIterator;
+use FilterIterator;
 use Iterator;
+use RuntimeException;
 
-class FileSystemBlogRepository implements BlogRepositoryInterface
+use function file_exists;
+use function mkdir;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function str_repeat;
+use function strtolower;
+
+use const DIRECTORY_SEPARATOR;
+
+class FileSystemBlogRepository implements BlogRepository
 {
     private const BLOG_DIR = 'blogs';
 
@@ -25,7 +40,9 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
         }
 
         foreach ($this->blogs as $blog) {
-            if ($slug == $blog->slug) return $blog;
+            if ($slug === $blog->slug) {
+                return $blog;
+            }
         }
 
         return null;
@@ -45,7 +62,7 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
         $blogFileIterator = $this->getBlogFiles();
 
         foreach ($blogFileIterator as $blogFile) {
-            $blog = new Blog;
+            $blog = new Blog();
 
             $fileName = $blogFile->getFileName();
             $preparedFileName = preg_replace('/\s\s+/', ' ', $fileName);
@@ -64,11 +81,11 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
     {
         $this->ensureBlogDirExists();
 
-        return new class(new \FilesystemIterator(static::getBlogDir())) extends \FilterIterator
+        return new class (new FilesystemIterator(static::getBlogDir())) extends FilterIterator
         {
             public function accept(): bool
             {
-                return $this->current()->getExtension() == 'md';
+                return $this->current()->getExtension() === 'md';
             }
         };
     }
@@ -84,7 +101,7 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
             !file_exists(static::getBlogDir())
             && !mkdir(static::getBlogDir())
         ) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     "Could not create the dir for blogs '%s'",
                     static::getBlogDir()
