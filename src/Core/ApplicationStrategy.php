@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use App\Core\Middleware\ExceptionMiddleware;
@@ -11,13 +13,16 @@ use League\Route\ContainerAwareTrait;
 use League\Route\Http\Exception\MethodNotAllowedException;
 use League\Route\Http\Exception\NotFoundException;
 use League\Route\Route;
+use League\Route\Strategy\AbstractStrategy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use ReflectionFunction;
 use ReflectionNamedType;
 
-class ApplicationStrategy extends \League\Route\Strategy\AbstractStrategy implements ContainerAwareInterface
+use function array_slice;
+
+class ApplicationStrategy extends AbstractStrategy implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
@@ -60,6 +65,6 @@ class ApplicationStrategy extends \League\Route\Strategy\AbstractStrategy implem
 
     public function getThrowableHandler(): MiddlewareInterface
     {
-        return new ExceptionMiddleware;
+        return new ExceptionMiddleware();
     }
 }
