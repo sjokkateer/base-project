@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Core\Models;
 
+use RuntimeException;
+
 use function file_get_contents;
+use function sprintf;
 
 class Blog
 {
@@ -16,6 +19,14 @@ class Blog
 
     public function content(): string
     {
-        return file_get_contents($this->file);
+        $content = file_get_contents($this->file);
+
+        if ($content === false) {
+            throw new RuntimeException(
+                sprintf('Could not get the content for file %s', $this->file)
+            );
+        }
+
+        return $content;
     }
 }
