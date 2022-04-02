@@ -1,6 +1,10 @@
 <?php
 $title = 'Method Not Allowed';
-$message = "{$request->getMethod()} is not allowed for {$request->getUri()->getPath()}";
+$message = sprintf(
+    "%s is not allowed for %s",
+    $request->getMethod(),
+    $request->getUri()->getPath()
+);
 ?>
 
 <?php include __DIR__ . '/../layouts/exception.html.php' ?>

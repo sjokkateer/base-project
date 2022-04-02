@@ -1,6 +1,6 @@
 <h1 class="blog-list-header">Most Recent Posts</h1>
 <ul class="blog-list">
-    <?php if (!empty($blogs)) : ?>
+    <?php if ($blogs != []) : ?>
         <?php foreach ($blogs as $blog) : ?>
             <li>
                 <h2 class="blog-list-title">
