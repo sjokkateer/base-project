@@ -1,22 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Core\Adapters\DiceAdapter;
-use App\Core\Adapters\MarkdownInterface;
+use App\Core\Adapters\Markdown;
 use App\Core\Adapters\ParsedownAdapter;
-use App\Core\BlogRepositoryInterface;
+use App\Core\BlogRepository;
 use App\Core\FileSystemBlogRepository;
 use Dice\Dice;
 
 $rules = [
-    MarkdownInterface::class => [
+    Markdown::class => [
         'shared' => true,
-        'instanceOf' => ParsedownAdapter::class
+        'instanceOf' => ParsedownAdapter::class,
     ],
-    BlogRepositoryInterface::class => [
+    BlogRepository::class => [
         'shared' => true,
-        'instanceOf' => FileSystemBlogRepository::class
+        'instanceOf' => FileSystemBlogRepository::class,
     ],
 ];
 
-$dice = (new Dice)->addRules($rules);
+$dice = (new Dice())->addRules($rules);
 return new DiceAdapter($dice);

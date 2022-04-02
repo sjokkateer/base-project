@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Adapters;
 
-interface MarkdownInterface
+interface Markdown
 {
     public function convertToHtml(string $markdown): string;
 }

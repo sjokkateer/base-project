@@ -1,16 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Controllers;
 
-use App\Core\BlogRepositoryInterface;
+use App\Core\BlogRepository;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+use function compact;
+use function view;
+
 class IndexController
 {
     public function __construct(
-        private BlogRepositoryInterface $blogRepo,
+        private BlogRepository $blogRepo,
     ) {
     }
 

@@ -1,25 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Learning;
+
+use FilesystemIterator;
+use FilterIterator;
 use PHPUnit\Framework\TestCase;
 
-// Prefix: AbstractClassName
+use function array_map;
+use function array_walk;
+use function iterator_to_array;
+
 final class IteratorLearningTest extends TestCase
 {
-    /** @test */
     public function testName(): void
     {
         // Arrange
-        $iterator = new class(new FilesystemIterator(__DIR__ . '/blogs')) extends FilterIterator
+        $iterator = new class (new FilesystemIterator(__DIR__ . '/blogs')) extends FilterIterator
         {
-            public function accept()
+            public function accept(): bool
             {
-                return $this->current()->getExtension() == 'md';
+                /** @phpstan-ignore-next-line */
+                return $this->current()->getExtension() === 'md';
             }
         };
 
         // Act
         $asArray = iterator_to_array($iterator, false);
-        $actual = array_map(fn ($file) => $file->getFileName(), $asArray);
+        /** @phpstan-ignore-next-line */
+        $actual = array_map(static fn ($file) => $file->getFilename(), $asArray);
 
         $expected = [
             'some blog.md',
@@ -28,6 +38,6 @@ final class IteratorLearningTest extends TestCase
         ];
 
         // Assert
-        array_walk($actual, fn ($actualFileName) => $this->assertContains($actualFileName, $expected));
+        array_walk($actual, static fn ($actualFileName) => static::assertContains($actualFileName, $expected));
     }
 }

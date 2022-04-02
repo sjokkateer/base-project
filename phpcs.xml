@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="phpcs-isaac">
+    <config name="testVersion" value="8.0-" />
+
+    <!-- include root folder of project -->
+    <file>.</file>
+
+    <!-- exclude paths -->
+    <exclude-pattern>./assets</exclude-pattern>
+    <exclude-pattern>./src/Migrations</exclude-pattern>
+    <exclude-pattern>./templates</exclude-pattern>
+    <exclude-pattern>./vendor</exclude-pattern>
+
+    <rule ref="MySource.PHP.GetRequestData.SuperglobalAccessed">
+        <exclude-pattern>./src</exclude-pattern>
+    </rule>
+
+    <!-- include all rules in isaac ruleset -->
+    <rule ref="ISAAC" />
+</ruleset>

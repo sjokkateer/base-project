@@ -1,15 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use App\Core\Models\Blog;
+use FilesystemIterator;
+use FilterIterator;
 use Iterator;
+use RuntimeException;
+use SplFileInfo;
 
-class FileSystemBlogRepository implements BlogRepositoryInterface
+use function file_exists;
+use function mkdir;
+use function rtrim;
+use function sprintf;
+use function str_repeat;
+use function str_replace;
+use function strtolower;
+
+use const DIRECTORY_SEPARATOR;
+
+class FileSystemBlogRepository implements BlogRepository
 {
     private const BLOG_DIR = 'blogs';
 
     private bool $cached;
+    /** @var array<Blog> */
     private array $blogs;
 
     public function __construct()
@@ -25,7 +42,9 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
         }
 
         foreach ($this->blogs as $blog) {
-            if ($slug == $blog->slug) return $blog;
+            if ($slug === $blog->slug) {
+                return $blog;
+            }
         }
 
         return null;
@@ -44,15 +63,16 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
     {
         $blogFileIterator = $this->getBlogFiles();
 
+        /** @var SplFileInfo $blogFile */
         foreach ($blogFileIterator as $blogFile) {
-            $blog = new Blog;
+            $blog = new Blog();
 
-            $fileName = $blogFile->getFileName();
-            $preparedFileName = preg_replace('/\s\s+/', ' ', $fileName);
+            $fileName = $blogFile->getFilename();
+            $preparedFileName = str_replace('  ', ' ', $fileName);
 
             $blog->title = rtrim($preparedFileName, '.md');
             $blog->file = $blogFile->getRealPath();
-            $blog->slug = strtolower(preg_replace('/\s/', '-', $blog->title));
+            $blog->slug = strtolower(str_replace(' ', '-', $blog->title));
 
             $this->blogs[] = $blog;
         }
@@ -64,30 +84,32 @@ class FileSystemBlogRepository implements BlogRepositoryInterface
     {
         $this->ensureBlogDirExists();
 
-        return new class(new \FilesystemIterator(static::getBlogDir())) extends \FilterIterator
+        return new class (new FilesystemIterator(self::getBlogDir())) extends FilterIterator
         {
             public function accept(): bool
             {
-                return $this->current()->getExtension() == 'md';
+                /** @var SplFileInfo */
+                $current = $this->current();
+                return $current->getExtension() === 'md';
             }
         };
     }
 
     private static function getBlogDir(): string
     {
-        return __DIR__ . str_repeat(DIRECTORY_SEPARATOR . '..', 2) . DIRECTORY_SEPARATOR . static::BLOG_DIR;
+        return __DIR__ . str_repeat(DIRECTORY_SEPARATOR . '..', 2) . DIRECTORY_SEPARATOR . self::BLOG_DIR;
     }
 
     private function ensureBlogDirExists(): void
     {
         if (
-            !file_exists(static::getBlogDir())
-            && !mkdir(static::getBlogDir())
+            !file_exists(self::getBlogDir())
+            && !mkdir(self::getBlogDir())
         ) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     "Could not create the dir for blogs '%s'",
-                    static::getBlogDir()
+                    self::getBlogDir()
                 )
             );
         }

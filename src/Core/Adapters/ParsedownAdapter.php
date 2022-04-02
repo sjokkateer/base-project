@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Adapters;
 
 use Parsedown;
 
-class ParsedownAdapter implements MarkdownInterface
+class ParsedownAdapter implements Markdown
 {
     public function __construct(
         private Parsedown $parser
