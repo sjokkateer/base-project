@@ -1,6 +1,6 @@
 <?php
 $additionalHeadTags = <<<HTML
-        <link rel="stylesheet" href="../assets/css/styles/stackoverflow-light.css">
+        <link rel="stylesheet" href="../assets/css/styles/stackoverflow-light.min.css">
         <script src="../assets/js/highlight.min.js"></script>
         
         <link rel="stylesheet" href="../assets/css/blog.css">
