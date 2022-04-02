@@ -2,7 +2,7 @@
 
 namespace App\Core\Adapters;
 
-interface MarkdownInterface
+interface Markdown
 {
     public function convertToHtml(string $markdown): string;
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Controllers;
 
-use App\Core\Adapters\MarkdownInterface;
+use App\Core\Adapters\Markdown;
 use App\Core\BlogRepositoryInterface;
 use App\Core\Exceptions\BlogNotFoundException;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -18,7 +18,7 @@ class BlogController
 {
     public function __construct(
         private BlogRepositoryInterface $blogRepo,
-        private MarkdownInterface $md,
+        private Markdown $md,
     ) {
     }
 

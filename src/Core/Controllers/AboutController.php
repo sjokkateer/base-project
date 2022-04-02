@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Controllers;
 
-use App\Core\Adapters\MarkdownInterface;
+use App\Core\Adapters\Markdown;
 use App\Core\SocialMedia;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -29,7 +29,7 @@ class AboutController
     protected const INTRO_FILE = 'intro.md';
 
     public function __construct(
-        private MarkdownInterface $md,
+        private Markdown $md,
     ) {
     }
 
