@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Exceptions;
 
-class BlogNotFoundException extends \Exception
+use Exception;
+
+use function sprintf;
+
+class BlogNotFoundException extends Exception
 {
     public function __construct(private string $slug)
     {
-        parent::__construct("No blog matching '$slug' found");
+        parent::__construct(sprintf("No blog matching '%s' found", $slug));
     }
 
     public function slug(): string
