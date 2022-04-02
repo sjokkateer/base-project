@@ -13,6 +13,7 @@ class ConfigFiles
     private const CONFIG_DIR = 'config';
     private const SOCIALS_FILE = 'socials.php';
     private const INTRO_FILE = 'intro.md';
+    private const CONTAINER_FILE = 'container.php';
 
     public static function getSocialsFile(): string
     {
@@ -27,5 +28,10 @@ class ConfigFiles
     public static function getIntroFile(): string
     {
         return self::getConfigDir() . DIRECTORY_SEPARATOR . self::INTRO_FILE;
+    }
+
+    public static function getContainerFile(): string
+    {
+        return self::getConfigDir() . DIRECTORY_SEPARATOR . self::CONTAINER_FILE;
     }
 }
