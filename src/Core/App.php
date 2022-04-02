@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use Laminas\Diactoros\ServerRequestFactory;
@@ -24,6 +26,6 @@ class App
 
         $response = $this->router->dispatch($request);
 
-        (new SapiEmitter)->emit($response);
+        (new SapiEmitter())->emit($response);
     }
 }
