@@ -1,6 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Views;
+
+use function extract;
+use function ob_get_clean;
+use function ob_start;
+
+use const DIRECTORY_SEPARATOR;
 
 class View
 {
@@ -14,16 +22,14 @@ class View
     /** @param array<string, mixed> $data */
     public function render(array $data = []): string
     {
-        $templateFolder = self::TEMPLATE_FOLDER;
-
         extract($data);
 
         ob_start();
-        include __DIR__ . "$templateFolder/$this->template.html.php";
+        include __DIR__ . self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . $this->template . '.html.php';
         $content = ob_get_clean();
 
         ob_start();
-        include __DIR__ . "$templateFolder/layouts/base.html.php";
+        include __DIR__ . self::TEMPLATE_FOLDER . DIRECTORY_SEPARATOR . 'layouts/base.html.php';
         return ob_get_clean();
     }
 }
