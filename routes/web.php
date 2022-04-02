@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Core\Controllers\AboutController;
 use App\Core\Controllers\BlogController;
 use App\Core\Controllers\IndexController;
