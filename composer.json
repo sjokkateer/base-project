@@ -20,7 +20,17 @@
         "files": ["src/helpers.php"]
     },
     "require-dev": {
-        "phpunit/phpunit": "^9",
-        "phpstan/phpstan": "^0.12.93"
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.5",
+        "isaac/php-code-sniffer-standard": "^25.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-phpunit": "^1.1",
+        "phpstan/phpstan-strict-rules": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        }
     }
 }
