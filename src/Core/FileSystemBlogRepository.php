@@ -1,9 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 use App\Core\Models\Blog;
+use FilesystemIterator;
+use FilterIterator;
 use Iterator;
+use RuntimeException;
+
+use function file_exists;
+use function mkdir;
+use function preg_replace;
+use function rtrim;
+use function sprintf;
+use function str_repeat;
+use function strtolower;
+
+use const DIRECTORY_SEPARATOR;
 
 class FileSystemBlogRepository implements BlogRepository
 {
@@ -25,7 +40,9 @@ class FileSystemBlogRepository implements BlogRepository
         }
 
         foreach ($this->blogs as $blog) {
-            if ($slug == $blog->slug) return $blog;
+            if ($slug === $blog->slug) {
+                return $blog;
+            }
         }
 
         return null;
@@ -45,7 +62,7 @@ class FileSystemBlogRepository implements BlogRepository
         $blogFileIterator = $this->getBlogFiles();
 
         foreach ($blogFileIterator as $blogFile) {
-            $blog = new Blog;
+            $blog = new Blog();
 
             $fileName = $blogFile->getFileName();
             $preparedFileName = preg_replace('/\s\s+/', ' ', $fileName);
@@ -64,11 +81,11 @@ class FileSystemBlogRepository implements BlogRepository
     {
         $this->ensureBlogDirExists();
 
-        return new class(new \FilesystemIterator(static::getBlogDir())) extends \FilterIterator
+        return new class (new FilesystemIterator(static::getBlogDir())) extends FilterIterator
         {
             public function accept(): bool
             {
-                return $this->current()->getExtension() == 'md';
+                return $this->current()->getExtension() === 'md';
             }
         };
     }
@@ -84,7 +101,7 @@ class FileSystemBlogRepository implements BlogRepository
             !file_exists(static::getBlogDir())
             && !mkdir(static::getBlogDir())
         ) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     "Could not create the dir for blogs '%s'",
                     static::getBlogDir()
