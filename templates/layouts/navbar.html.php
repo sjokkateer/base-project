@@ -2,7 +2,7 @@
     <li class="navbar">
         <a class="navbar-link" href="/"> Home</a>
     </li>
-    <?php if (App\Core\Controllers\AboutController::hasAbout()) : ?>
+    <?php if (App\Core\Services\AboutService::hasAbout()) : ?>
         <li class="navbar">
             <a class="navbar-link" href="/about"> About</a>
         </li>
