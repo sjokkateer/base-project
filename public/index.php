@@ -6,9 +6,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\App;
 use App\Core\ApplicationStrategy;
+use App\Core\Helpers\ConfigFiles;
 use League\Route\Router;
 
-$container = include_once __DIR__ . '/../config/container.php';
+$container = include_once ConfigFiles::getContainerFile();
 
 /** @var League\Route\Strategy\ApplicationStrategy */
 $strategy = (new ApplicationStrategy())->setContainer($container);
