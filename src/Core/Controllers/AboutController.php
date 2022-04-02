@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RuntimeException;
 
-use function array_filter;
 use function compact;
 use function file_exists;
 use function file_get_contents;

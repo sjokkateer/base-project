@@ -27,7 +27,7 @@ class BlogController
     {
         $slug = $args['slug'];
         $blog = $this->blogRepo->get($slug);
-        
+
         if ($blog === null) {
             throw new BlogNotFoundException($slug);
         }

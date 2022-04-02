@@ -9,13 +9,14 @@ use FilesystemIterator;
 use FilterIterator;
 use Iterator;
 use RuntimeException;
+use SplFileInfo;
 
 use function file_exists;
 use function mkdir;
-use function preg_replace;
 use function rtrim;
 use function sprintf;
 use function str_repeat;
+use function str_replace;
 use function strtolower;
 
 use const DIRECTORY_SEPARATOR;
@@ -62,7 +63,7 @@ class FileSystemBlogRepository implements BlogRepository
     {
         $blogFileIterator = $this->getBlogFiles();
 
-        /** @var \SplFileInfo $blogFile */
+        /** @var SplFileInfo $blogFile */
         foreach ($blogFileIterator as $blogFile) {
             $blog = new Blog();
 
@@ -87,7 +88,7 @@ class FileSystemBlogRepository implements BlogRepository
         {
             public function accept(): bool
             {
-                /** @var \SplFileInfo */
+                /** @var SplFileInfo */
                 $current = $this->current();
                 return $current->getExtension() === 'md';
             }
