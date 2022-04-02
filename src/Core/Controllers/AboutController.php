@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core\Controllers;
 
 use App\Core\Adapters\MarkdownInterface;
@@ -7,6 +9,18 @@ use App\Core\SocialMedia;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use RuntimeException;
+
+use function array_filter;
+use function compact;
+use function file_exists;
+use function file_get_contents;
+use function is_array;
+use function sprintf;
+use function str_repeat;
+use function view;
+
+use const DIRECTORY_SEPARATOR;
 
 class AboutController
 {
@@ -39,7 +53,7 @@ class AboutController
         }
 
         if (!is_array($socials)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 sprintf(
                     "'%s' must return an array of SocialMedia objects",
                     static::getSocialsFile()
