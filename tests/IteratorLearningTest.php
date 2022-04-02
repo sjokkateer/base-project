@@ -28,7 +28,7 @@ final class IteratorLearningTest extends TestCase
 
         // Act
         $asArray = iterator_to_array($iterator, false);
-        $actual = array_map(static fn ($file) => $file->getFileName(), $asArray);
+        $actual = array_map(static fn ($file) => $file->getFilename(), $asArray);
 
         $expected = [
             'some blog.md',
@@ -37,6 +37,6 @@ final class IteratorLearningTest extends TestCase
         ];
 
         // Assert
-        array_walk($actual, fn ($actualFileName) => $this->assertContains($actualFileName, $expected));
+        array_walk($actual, static fn ($actualFileName) => static::assertContains($actualFileName, $expected));
     }
 }
