@@ -7,7 +7,7 @@ namespace App\Core\Controllers;
 use App\Core\Adapters\Markdown;
 use App\Core\BlogRepository;
 use App\Core\Exceptions\BlogNotFoundException;
-use Laminas\Diactoros\Response\HtmlResponse;
+use App\Core\Factories\HtmlResponseFactory;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -19,6 +19,7 @@ class BlogController
     public function __construct(
         private BlogRepository $blogRepo,
         private Markdown $md,
+        private HtmlResponseFactory $responseFactory,
     ) {
     }
 
@@ -34,6 +35,8 @@ class BlogController
 
         $blog->content = $this->md->convertToHtml($blog->content());
 
-        return new HtmlResponse(view('blog', compact('blog')));
+        return $this
+            ->responseFactory
+            ->create(view('blog', compact('blog')));
     }
 }
