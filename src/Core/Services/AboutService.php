@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Services;
 
 use App\Core\Helpers\ConfigFiles;
-use App\Core\SocialMedia;
+use App\Core\Socials\SocialMedia;
 use RuntimeException;
 
 use function file_exists;
