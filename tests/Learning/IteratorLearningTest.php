@@ -12,12 +12,18 @@ use function array_map;
 use function array_walk;
 use function iterator_to_array;
 
+use const DIRECTORY_SEPARATOR;
+
 final class IteratorLearningTest extends TestCase
 {
+    private const BLOGS_DIR = 'blogs';
+
     public function testName(): void
     {
         // Arrange
-        $iterator = new class (new FilesystemIterator(__DIR__ . '/blogs')) extends FilterIterator
+        $blogs = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . self::BLOGS_DIR;
+
+        $iterator = new class (new FilesystemIterator($blogs)) extends FilterIterator
         {
             public function accept(): bool
             {
