@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core;
+namespace App\Core\Repositories;
 
 use App\Core\Models\Blog;
 use FilesystemIterator;
@@ -97,7 +97,7 @@ class FileSystemBlogRepository implements BlogRepository
 
     private static function getBlogDir(): string
     {
-        return __DIR__ . str_repeat(DIRECTORY_SEPARATOR . '..', 2) . DIRECTORY_SEPARATOR . self::BLOG_DIR;
+        return __DIR__ . str_repeat(DIRECTORY_SEPARATOR . '..', 3) . DIRECTORY_SEPARATOR . self::BLOG_DIR;
     }
 
     private function ensureBlogDirExists(): void

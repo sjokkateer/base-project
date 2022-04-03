@@ -5,10 +5,10 @@ declare(strict_types=1);
 use App\Core\Adapters\DiceAdapter;
 use App\Core\Adapters\Markdown;
 use App\Core\Adapters\ParsedownAdapter;
-use App\Core\BlogRepository;
 use App\Core\Factories\HtmlResponseFactory;
 use App\Core\Factories\LaminasHtmlResponseFactory;
-use App\Core\FileSystemBlogRepository;
+use App\Core\Repositories\FileSystemBlogRepository;
+use App\Core\Repositories\BlogRepository;
 use Dice\Dice;
 
 $rules = [

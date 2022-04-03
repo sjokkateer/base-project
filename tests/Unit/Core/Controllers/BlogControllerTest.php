@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Core\Controllers;
 
 use App\Core\Adapters\Markdown;
-use App\Core\BlogRepository;
 use App\Core\Exceptions\BlogNotFoundException;
 use App\Core\Factories\HtmlResponseFactory;
 use App\Core\Models\Blog;
+use App\Core\Repositories\BlogRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;

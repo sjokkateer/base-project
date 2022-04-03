@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core\Controllers;
 
-use App\Core\BlogRepository;
 use App\Core\Factories\HtmlResponseFactory;
+use App\Core\Repositories\BlogRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

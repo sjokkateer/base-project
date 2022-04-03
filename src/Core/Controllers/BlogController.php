@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Core\Controllers;
 
 use App\Core\Adapters\Markdown;
-use App\Core\BlogRepository;
 use App\Core\Exceptions\BlogNotFoundException;
 use App\Core\Factories\HtmlResponseFactory;
+use App\Core\Repositories\BlogRepository;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
