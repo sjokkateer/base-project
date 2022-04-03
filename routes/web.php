@@ -8,7 +8,7 @@ use App\Core\Controllers\IndexController;
 use App\Core\Services\AboutService;
 
 $router->get('/', [IndexController::class, 'show']);
-$router->get('/blogs/{slug}', [BlogController::class, 'show']);
+$router->get('/blogs/{' . BlogController::SLUG_KEY . '}', [BlogController::class, 'show']);
 
 if (AboutService::hasAbout()) {
     $router->get('/about', AboutController::class);
