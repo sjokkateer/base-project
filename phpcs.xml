@@ -11,8 +11,12 @@
     <exclude-pattern>./templates</exclude-pattern>
     <exclude-pattern>./vendor</exclude-pattern>
 
+    <!-- exclude from rules -->
     <rule ref="MySource.PHP.GetRequestData.SuperglobalAccessed">
         <exclude-pattern>./src</exclude-pattern>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength">
+        <exclude-pattern>./tests</exclude-pattern>
     </rule>
 
     <!-- include all rules in isaac ruleset -->
