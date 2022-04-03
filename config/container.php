@@ -7,8 +7,8 @@ use App\Core\Adapters\Markdown;
 use App\Core\Adapters\ParsedownAdapter;
 use App\Core\Factories\HtmlResponseFactory;
 use App\Core\Factories\LaminasHtmlResponseFactory;
-use App\Core\Repositories\FileSystemBlogRepository;
 use App\Core\Repositories\BlogRepository;
+use App\Core\Repositories\FileSystemBlogRepository;
 use Dice\Dice;
 
 $rules = [
