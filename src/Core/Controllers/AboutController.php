@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Core\Controllers;
 
 use App\Core\Adapters\Markdown;
+use App\Core\Factories\HtmlResponseFactory;
 use App\Core\Services\AboutService;
-use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -18,6 +18,7 @@ class AboutController
     public function __construct(
         private Markdown $md,
         private AboutService $service,
+        private HtmlResponseFactory $responseFactory,
     ) {
     }
 
@@ -26,6 +27,8 @@ class AboutController
         $intro = $this->md->convertToHtml($this->service->getIntro());
         $socials = $this->service->getSocials();
 
-        return new HtmlResponse(view('about/index', compact('intro', 'socials')));
+        return $this
+            ->responseFactory
+            ->create(view('about/index', compact('intro', 'socials')));
     }
 }
