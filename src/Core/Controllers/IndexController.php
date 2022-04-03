@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Controllers;
 
 use App\Core\BlogRepository;
-use Laminas\Diactoros\Response\HtmlResponse;
+use App\Core\Factories\HtmlResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -16,6 +16,7 @@ class IndexController
 {
     public function __construct(
         private BlogRepository $blogRepo,
+        private HtmlResponseFactory $responseFactory,
     ) {
     }
 
@@ -23,6 +24,8 @@ class IndexController
     {
         $blogs = $this->blogRepo->all();
 
-        return new HtmlResponse(view('home', compact('blogs')));
+        return $this
+            ->responseFactory
+            ->create(view('home', compact('blogs')));
     }
 }

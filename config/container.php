@@ -6,6 +6,8 @@ use App\Core\Adapters\DiceAdapter;
 use App\Core\Adapters\Markdown;
 use App\Core\Adapters\ParsedownAdapter;
 use App\Core\BlogRepository;
+use App\Core\Factories\HtmlResponseFactory;
+use App\Core\Factories\LaminasHtmlResponseFactory;
 use App\Core\FileSystemBlogRepository;
 use Dice\Dice;
 
@@ -17,6 +19,10 @@ $rules = [
     BlogRepository::class => [
         'shared' => true,
         'instanceOf' => FileSystemBlogRepository::class,
+    ],
+    HtmlResponseFactory::class => [
+        'shared' => true,
+        'instanceOf' => LaminasHtmlResponseFactory::class,
     ],
 ];
 
